@@ -68,9 +68,10 @@ export default function Home() {
         <AnyReactComponent
           lat={location.lat}
           lng={location.lng}
-          text={`${update ? "Updating" : 'here'} (${location.lat}, ${location.lng})`}
+          text={`${update ? "U" : 'S'} (${location.lat}, ${location.lng}) ${locationHistory.length}`}
         />
       </GoogleMapReact>
+      <div>some text</div>
     </div>
   );
 }

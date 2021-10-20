@@ -6,9 +6,12 @@ const AnyReactComponent = ({ text }) => (
   <div className={styles.marker}>{text}</div>
 );
 
+let mapRef;
+let locationHistory = [];
+
 export default function Home() {
   const [location, setLoc] = useState({
-    lat: 6.7,
+    lat: 6.9,
     lng: 80.3,
   });
   const [update, setUpdating] = useState(false);
@@ -24,12 +27,29 @@ export default function Home() {
         });
         setTimeout(() => {
           setUpdating(false);
-        }, 1000);
+        }, 100);
       });
     } else {
       console.log("no geo location");
     }
   }, []);
+
+  useEffect(() => {
+    locationHistory.push(location);
+
+    setTimeout(() => {
+      const myPath = new mapRef.maps.Polyline({
+        path: locationHistory,
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 1,
+      });
+
+      myPath.setMap(mapRef.map);
+
+    }, 1000);
+  }, [location])
 
   return (
     <div className={styles.container}>
@@ -40,6 +60,10 @@ export default function Home() {
           lng: location.lng,
         }}
         defaultZoom={11}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={({ map, maps }) => {
+          mapRef = {map, maps}
+        }}
       >
         <AnyReactComponent
           lat={location.lat}

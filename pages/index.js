@@ -10,15 +10,20 @@ export default function Home() {
     lat: 6.7,
     lng: 80.3
   });
+  const [update, setUpdating] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation){
       navigator.geolocation.watchPosition((position) => {
         console.log(position.coords);
+        setUpdating(true);
         setLoc({
           lng: position.coords.longitude,
           lat: position.coords.latitude,
         });
+        setTimeout(() => {
+          setUpdating(false);
+        }, 1000);
       });
     } else {
       console.log('no geo location');
@@ -35,7 +40,7 @@ export default function Home() {
         }}
         defaultZoom={11}
       >
-        <AnyReactComponent lat={location.lat} lng={location.lng} text="Here" />
+        <AnyReactComponent lat={location.lat} lng={location.lng} text={update ? 'Updating' : 'Here'} />
       </GoogleMapReact>
     </div>
   );

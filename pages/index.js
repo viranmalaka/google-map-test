@@ -44,7 +44,7 @@ export default function Home() {
         <AnyReactComponent
           lat={location.lat}
           lng={location.lng}
-          text={update ? "Updating" : `Here (${location.lat}, ${location.lng})`}
+          text={`${update ? "Updating" : 'here'} (${location.lat}, ${location.lng})`}
         />
       </GoogleMapReact>
     </div>

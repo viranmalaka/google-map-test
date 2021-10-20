@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyDQoE5Fwwwt2LqvgzGin7YnLrKcDsah92c" }}
+        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GMAP_KEY }}
         defaultCenter={{
           lat: location.lat,
           lng: location.lng,
@@ -71,7 +71,6 @@ export default function Home() {
           text={`${update ? "U" : 'S'} (${location.lat}, ${location.lng}) ${locationHistory.length}`}
         />
       </GoogleMapReact>
-      <div>some text</div>
     </div>
   );
 }
